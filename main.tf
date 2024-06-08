@@ -7,11 +7,14 @@ terraform {
   }
 }
 
-provider "docker" {}
+provider "docker" {
+  host     = "ssh://santatra@192.168.56.3:22"
+  ssh_opts = ["-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null"]
+}
 
 resource "docker_image" "nginx" {
   name         = "nginx:latest"
-  keep_locally = false
+  keep_locally = true
 }
 
 resource "docker_container" "nginx" {
