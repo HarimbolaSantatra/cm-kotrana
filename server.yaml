@@ -1,0 +1,16 @@
+- name: Install packages
+  remote_user: santatra
+  hosts: vms
+  become: true
+  tasks:
+    - name: Install snap
+      ansible.builtin.apt:
+        name: snapd
+    - name: Install lxd
+      community.general.snap:
+        name: lxd
+    - name: Setup group
+      ansible.builtin.user:
+        name: santatra
+        groups: lxd
+        append: yes
