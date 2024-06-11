@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     docker = {
-      source = "kreuzwerker/docker"
+      source  = "kreuzwerker/docker"
       version = "~> 3.0.1"
     }
   }
@@ -15,6 +15,10 @@ provider "docker" {
 resource "docker_image" "nginx" {
   name         = "nginx:latest"
   keep_locally = true
+  build {
+    context = "."
+    tag     = ["mine:latest"]
+  }
 }
 
 resource "docker_container" "nginx" {
